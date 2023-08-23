@@ -54,7 +54,14 @@ inquirer
             })
         }
       else  if (response.option === "add a department"){
-           db.query(`INSERT INTO department (name ) VALUES ("HR");`, function (err,data){
+        inquirer.prompt ([
+            {
+                message:"what is the department name?",
+name:"dept_name",
+type:"input"
+            }
+        ]).then(function(data){
+              db.query(`INSERT INTO department (name) VALUES ("${data.dept_name}");`, function (err,data){
                 if (err){
                     throw err
                 }
@@ -62,8 +69,36 @@ inquirer
                     console.table (data)
                 }
             })
+        })
         }
-       else if (response.option === "add a role"){
+
+       else if (response.option === "add a role"){ inquirer.prompt ([
+        {
+            message:"what is the role you would like to add?",
+name:"role",
+type:"input"
+        },
+        {message:"what is the salary of the role?",
+         name:"salary",
+        type:"input"},
+        
+            {message:"what is the department id?",
+            name:"department_id",
+            type:"input"},
+        
+    ]).then(function(data){
+        // INSERT INTO role (title,salary,department_id) VALUES ("HR REP",50000,1);
+
+          db.query(`INSERT INTO role (title,salary,department_id) VALUES ("${data.role}",${data.salary},${data.department_id});`, function(err,response){
+          
+            if (err){
+                throw err
+            }
+            else {
+                console.log ("here",response)
+            }
+        })
+    })
            db.query("SELECT * FROM role", function (err,data){
                 if (err){
                     throw err
@@ -74,7 +109,7 @@ inquirer
             })
         }
        else if (response.option === "add an employee"){
-           db.query("SELECT * FROM employee", function (err,data){
+           db.query("INSERT * FROM employee", function (err,data){
                 if (err){
                     throw err
                 }
@@ -96,8 +131,7 @@ inquirer
         else {
             console.log("something went wrong")
         }
-        //make if statements based on which choice they pick
-        //in the uf statements run db.query
+        
         console.log(response)
     }
   );
