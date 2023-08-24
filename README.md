@@ -52,6 +52,9 @@ The application will display the results of your actions, and you can continue u
 Contributing
 Contributions are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
 
+tutorial video 
+-https://drive.google.com/file/d/1fBwDpqNpMpszfQeiKX4hCNCuPdgzJzlD/view
+
 License
 This project is licensed under the MIT License.
 
