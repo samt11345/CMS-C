@@ -108,8 +108,27 @@ type:"input"
                 }
             })
         }
-       else if (response.option === "add an employee"){
-           db.query("INSERT * FROM employee", function (err,data){
+        else if (response.option === "add an employee"){ inquirer.prompt ([
+            {
+                message:"what is the first name of the employee you would like to add?",
+    name:"first_name",
+    type:"input"
+            },
+            {message:"what is the last name of the employee?",
+             name:"last_name",
+            type:"input"},
+            
+                {message:"what is the role id?",
+                name:"role_id",
+                type:"input"},
+
+                {message:"what is the manager id?",
+                name:"manager_id",
+                type:"input"},
+
+            
+        ]).then(function(data){        
+           db.query(`INSERT INTO employee (first_name,last_name,role_id,manager_id) VALUES ("${data.first_name}","${data.last_name}",${data.role_id},${data.manager_id});`, function (err,data){ 
                 if (err){
                     throw err
                 }
@@ -118,8 +137,22 @@ type:"input"
                 }
             })
         }
-      else  if (response.option === "update employee role"){
-           db.query("SELECT * FROM role", function (err,data){
+        ) }
+        else if (response.option === "update an employee role"){ inquirer.prompt ([
+            {
+                message:"what is the id of the employee you want to update?",
+    name:"employee_id",
+    type:"input"
+            },
+            {message:"what is the id of the new role?",
+             name:"role_id",
+            type:"input"},
+            
+                
+
+            
+        ]).then(function(data){        
+           db.query(`UPDATE employee SET role_id=${data.role_id} WHERE id=${data.employee_id}`, function (err,data){ 
                 if (err){
                     throw err
                 }
@@ -128,6 +161,7 @@ type:"input"
                 }
             })
         }
+        )}
         else {
             console.log("something went wrong")
         }
@@ -137,6 +171,7 @@ type:"input"
   );
 
 }
+
 
 const db = mySql.createConnection(
     {
